@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
+import { ConfigService } from '@nestjs/config';
 import { Pokemon } from './entities/pokemon.entity';
 import { Model, isValidObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -11,7 +12,7 @@ export class PokemonService {
 
   constructor(
     @InjectModel(Pokemon.name)
-    private readonly pokemonModel : Model<Pokemon>
+    private readonly pokemonModel : Model<Pokemon>,
   ) {}
   async create(createPokemonDto: CreatePokemonDto) {
     createPokemonDto.name = createPokemonDto.name.toLowerCase();
